@@ -120,6 +120,9 @@ var client = (function () {
           case "6.1":
             system.win = "7";
             break;
+          case "10.0":
+            system.win = "10";
+            break;
           default:
             system.win = "NT";
             break;
