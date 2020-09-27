@@ -106,6 +106,7 @@ var client = (function () {
   //检测 windows 操作系统
   if (system.win) {
     if (/Win(?:dows )?([^do]{2})\s?(\d+\.\d+)?/.test(ua)) {
+      //非标准属性
       if (RegExp["$1"] == "NT") {
         switch (RegExp["$2"]) {
           case "5.0":
@@ -176,3 +177,19 @@ var client = (function () {
     system: system,
   };
 })();
+
+/**
+ * @method: 扁平化无限嵌套的数组
+ * @param {Array}  arr 源数组
+ * @param {Number}  d 层级
+ * @return {Array} array 返回一维数组
+ */
+function flatDeep(arr, d = 1) {
+  return d > 0
+    ? arr.reduce(
+        (acc, val) =>
+          acc.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val),
+        []
+      )
+    : arr.slice();
+}
